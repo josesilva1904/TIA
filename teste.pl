@@ -1,3 +1,10 @@
+:- op(800, fx, if).
+:- op(700, xfx, then).
+:- op(300, xfy, or).
+:- op(500, xfy, and).
+:- op(800, xfx, <=).
+:-dynamic(fact/1).
+
 if espirros and corrimento_nasal and tosse and dor_garganta and dor_cabeca then infeccao_viral_respiratoria:0.9.
 if infeccao_viral_respiratoria and febre and mal_estar and diarreia then covid:0.9.
 if infeccao_viral_respiratoria and obstrucao_nasal and mal_estar then constipacao:0.8.
