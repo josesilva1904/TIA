@@ -1,4 +1,4 @@
-:- consult('bd.pl').
+:- consult('baseconhecimento.pl').
 :- dynamic fact/1.
 
 diagnostico :-
