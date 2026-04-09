@@ -21,3 +21,36 @@ tratamento(otite, 'Uso de gotas otológicas ou antibióticos sob prescrição e 
 tratamento(conjuntivite, 'Lave os olhos com soro, use colírios específicos e evite partilhar toalhas ou tocar nos olhos.').
 tratamento(varicela, 'Cuidado com a higiene das borbulhas, use loções para a comichão e evite o contacto com grávidas.').
 tratamento(amigdalite, 'Gargarejos com água salgada, hidratação e antibióticos se a origem for bacteriana.').
+
+
+% Processamento de Tratamentos
+
+% se nao houver sintomas, nao ha tratamentos
+get_tratamentos([], []).
+
+% Processa o primeiro diagnóstico e continua para o resto da lista.
+get_tratamentos([(D, P, E)|R], L) :- 
+    get_tratamentos(R, R2), % processar o resto da lista primeiro
+    (
+        (tratamento(D, T) -> 
+            % se encontrar o tratamento, adicionar ao tuplo (D, P, E, T)
+            L = [(D, P, E, T)|R2]
+        ; 
+            % se não encontrar tratamento, mantém apenas os dados originais ou marca como 'Consulte um médico'
+            L = [(D, P, E, 'Tratamento não especificado. Consulte um especialista.')|R2]
+        )
+    ).
+
+% Apresentação de Resultados
+
+% nao imprime nada
+apresentar_resultados([]).
+
+% mostra os detalhes de cada doença encontrada
+apresentar_resultados([(D, P, E, T)|R]) :-
+    format('~n--- DIAGNÓSTICO: ~w ---~n', [D]),
+    format('Certeza: ~w%~n', [P]),
+    format('Explicação: ~w~n', [E]),
+    format('Recomendação/Tratamento: ~w~n', [T]),
+    nl,
+    apresentar_resultados(R).
