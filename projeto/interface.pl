@@ -80,7 +80,7 @@ perguntas :-
 ask(Sintoma, Texto, Confianca) :-
     nl, write(Texto), nl,
     write('1- Sim.'), nl,
-    write('2- Não.'), nl,
+    write('2- Nao.'), nl,
     write('A sua opcao e: '), read(Op),
     (Op == 1 -> assert(fact(Sintoma:Confianca)) ; true).
 
