@@ -5,7 +5,7 @@
 :- dynamic(fact/1).
 
 % Mafalda
-if (tosse and febre and dificuldade_respirar) and (fadiga or dores_musculares or dor_cabeca or dor_garganta or congestao_nasal or nauseas or diarreia or dor_peito) then covid19:0.90.
+if (tosse and febre and dificuldade_respirar) and (fadiga or dores_musculares or dor_cabeca or dor_garganta or congestao_nasal or nauseas or diarreia or dor_peito) then covid19:0.9.
 if (nauseas and vomitos and diarreia) and (febre or dores_musculares or dor_cabeca or perda_apetite or colicas) then gastroenterite:0.8.
 if (dor_urinar and vontade_urinar) and (urina_turva or sangue_urina) then infecao_urinaria:0.9.
 if (dor_cabeca) and (sensibilidade_luz or sensibilidade_som or aura_visual or nauseas) then enxaqueca:0.8.
