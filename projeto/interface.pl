@@ -1,9 +1,11 @@
 :- op(800, fx, if).
 :- op(700, xfx, then).
-:- op(300, xfy, or).
-:- op(500, xfy, and).
+:- op(500, xfy, or).
+:- op(400, xfy, and).
 :- op(800, xfx, <=).
 :- dynamic(fact/1).
+
+% Carrega todos os módulos na ordem correta
 :- [basedados, forwardchain, baseconhecimento, proof, certainty].
 
 menu :-
@@ -20,8 +22,7 @@ escolha(1) :- perguntas, resultado.
 escolha(2) :- write('Ate a proxima!'), halt.
 escolha(_) :- write('Introduza uma opcao valida!'), nl, menu.
 
-% --- Bloco de Perguntas Atualizado ---
-
+% --- Bloco de Perguntas ---
 perguntas :-
     % Sintomas Respiratórios e Gerais
     ask(tosse, 'Tem tosse?', 0.9),
@@ -41,7 +42,7 @@ perguntas :-
     ask(perda_apetite, 'Perdeu o apetite?', 0.9),
     ask(colicas, 'Sente colicas abdominais?', 0.7),
     
-    % Sintomas Específicos (Diana e Zé)
+    % Sintomas Específicos
     ask(dor_peito, 'Sente dor no peito?', 1),
     ask(sangue_tossir, 'Tosse com sangue?', 1),
     ask(perda_peso, 'Teve perda de peso recente?', 0.8),
@@ -56,7 +57,7 @@ perguntas :-
     ask(confusao_mental, 'Sente confusao mental?', 0.9),
     ask(cianose, 'Nota labios ou unhas azuladas (cianose)?', 1),
     
-    % Sintomas Urinários e Sentidos (Vitória e outros)
+    % Sintomas Urinários e Sentidos
     ask(dor_urinar, 'Sente dor ao urinar?', 1),
     ask(urina_turva, 'A urina parece turva?', 0.7),
     ask(sangue_urina, 'Notou sangue na urina?', 1),
@@ -66,7 +67,7 @@ perguntas :-
     ask(sensibilidade_som, 'Tem sensibilidade ao som?', 0.7),
     ask(aura_visual, 'Ve manchas ou luzes antes da dor (aura)?', 0.8),
     ask(dor_ouvidos, 'Doi-lhe o ouvido?', 0.8),
-    ask(secrecao_ouvido, 'Tem corrimento/secreçao no ouvido?', 0.8),
+    ask(secrecao_ouvido, 'Tem corrimento/secrecao no ouvido?', 0.8),
     ask(diminuicao_audicao, 'Sente que ouve pior?', 0.8),
     ask(comichao_olhos, 'Tem comichao nos olhos?', 0.7),
     ask(comichao_pele, 'Tem comichao na pele?', 0.6),
@@ -76,7 +77,7 @@ perguntas :-
     ask(perda_voz, 'Perdeu a voz?', 0.8),
     ask(irritacao_garganta, 'Sente a garganta irritada?', 0.6).
 
-% Predicado auxiliar para evitar repetição de código
+% Predicado auxiliar
 ask(Sintoma, Texto, Confianca) :-
     nl, write(Texto), nl,
     write('1- Sim.'), nl,
@@ -84,15 +85,17 @@ ask(Sintoma, Texto, Confianca) :-
     write('A sua opcao e: '), read(Op),
     (Op == 1 -> assert(fact(Sintoma:Confianca)) ; true).
 
-% --- Resultado (Mantém a tua lógica original) ---
+% --- Resultado ---
 resultado :- 
     doencas(L1),
     get_certainties(L1, L2),
     get_proofs(L2, L3),
-    result,
     get_tratamentos(L3, L4),
     (
-        (L4 = [], write('Nao foi possível identificar a doença com certeza. Consulte um medico.'));
-        (apresentar_resultados(L4))
+        (L4 = [] -> 
+            nl, write('Nao foi possivel identificar a doenca com base nos sintomas indicados. Consulte um medico.'), nl
+        ) ; (
+            apresentar_resultados(L4)
+        )
     ),
     retractall(fact(_)).
