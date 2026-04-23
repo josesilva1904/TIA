@@ -1,3 +1,9 @@
+:- op(800, fx, if).
+:- op(700, xfx, then).
+:- op(500, xfy, and).
+:- op(300, xfy, or).
+
+% Garante que os outros ficheiros são carregados
 :- consult('baseconhecimento.pl').
 :- dynamic fact/1.
 
