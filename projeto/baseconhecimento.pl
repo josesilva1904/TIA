@@ -26,8 +26,8 @@ if (perda_apetite and (nauseas or vomitos)) and (febre or fadiga or dores_muscul
 if (febre and calafrios) and (dor_garganta or dores_musculares or fadiga) then malaria:0.6.
 
 % Vitória
-if febre and dor_cabeca and nauseas and vomitos and calafrios and zumbido_ouvido and dor_ouvidos and secrecao_ouvido and diminuicao_audicao then laringite:0.7.
-if visao_turva and sensibilidade_luz and comichao_olhos then otite:0.9.
-if febre and fadiga and dores_musculares and dor_cabeca and perda_apetite and calafrios and comichao_pele then conjuntivite:0.8.
-if tosse and febre and dificuldade_respirar and fadiga and dor_cabeca and perda_paladar and dor_garganta and perda_apetite and calafrios and dor_ouvidos and amigdalas_inchadas and mau_halito then varicela:0.9.
-if tosse and febre and dificuldade_respirar and fadiga and dor_garganta and rouquidao and perda_voz and irritacao_garganta then amigdalite:0.8.
+if (febre and dor_cabeca) and (nauseas or vomitos or calafrios or zumbido_ouvido or dor_ouvidos or secrecao_ouvido or diminuicao_audicao) then laringite:0.7.
+if (visao_turva) and (sensibilidade_luz or comichao_olhos) then otite:0.9.
+if (febre and fadiga) and (dores_musculares or dor_cabeca or perda_apetite or calafrios or comichao_pele) then conjuntivite:0.8.
+if (tosse and febre and dificuldade_respirar) and (fadiga or dor_cabeca or perda_paladar or dor_garganta or perda_apetite or calafrios or dor_ouvidos or amigdalas_inchadas or mau_halito) then varicela:0.9.
+if (tosse and febre and dificuldade_respirar) and (fadiga or dor_garganta or rouquidao or perda_voz or irritacao_garganta) then amigdalite:0.8.
