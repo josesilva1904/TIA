@@ -4,7 +4,7 @@
 :- op(500, xfy, and).
 :- op(800, xfx, <=).
 :- dynamic(fact/1).
-:- [basedados, forwardchain, baseconhecimento].
+:- [basedados, forwardchain, baseconhecimento, proof, certainty].
 
 menu :-
     retractall(fact(_)), nl,
