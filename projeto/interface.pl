@@ -1,3 +1,4 @@
+:- set_prolog_flag(encoding, utf8).
 :- op(800, fx, if).
 :- op(700, xfx, then).
 :- op(500, xfy, or).

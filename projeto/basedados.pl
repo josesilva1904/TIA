@@ -1,3 +1,4 @@
+:- set_prolog_flag(encoding, utf8).
 doencas([covid19,gastroenterite,infecao_urinaria,enxaqueca,gripe_a,tuberculose,hipertensao,diabetes,ataque_cardiaco,pneumonia,rinite,lombalgia,sinusite,hepatite,malaria,laringite,otite,conjuntivite,varicela,amigdalite]).
 
 % Tratamentos baseados nas doenças listadas
