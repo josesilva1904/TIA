@@ -3,24 +3,24 @@ doencas([gastroenterite,infecao_urinaria,enxaqueca,gripe_a,tuberculose,hipertens
 
 % Tratamentos baseados nas doenças listadas
 tratamento(gastroenterite, 'Foco total na reidratação (soro caseiro) e dieta leve (arroz, canja, banana).').
-tratamento(infecao_urinaria, 'Consulte um médico para prescrição de antibióticos e aumente a ingestão de água.').
-tratamento(enxaqueca, 'Repouse num local escuro e silencioso. Tome a medicação prescrita e evite gatilhos.').
-tratamento(gripe_a, 'Repouse, hidrate-se e use antivirais se receitados pelo médico nas primeiras 48h.').
-tratamento(tuberculose, 'Tratamento rigoroso com antibióticos por longo período e acompanhamento médico constante.').
-tratamento(hipertensao, 'Reduza o sal, pratique exercício e tome a medicação diária conforme orientação médica.').
-tratamento(diabetes, 'Controlo da glicémia, dieta equilibrada com pouco açúcar e uso de insulina ou hipoglicemiantes.').
-tratamento(ataque_cardiaco, 'EMERGÊNCIA: Ligue imediatamente para o 112 ou dirija-se ao hospital mais próximo.').
-tratamento(pneumonia, 'Uso de antibióticos ou antivirais conforme o tipo, repouso e fisioterapia respiratória se necessário.').
-tratamento(rinite, 'Evite contacto com alergénios (pó, pólen), use anti-histamínicos ou sprays nasais.').
-tratamento(lombalgia, 'Repouse em posição confortável, use compressas quentes e considere fisioterapia ou analgésicos.').
-tratamento(sinusite, 'Lavagem nasal com soro fisiológico, hidratação e, se bacteriana, uso de antibióticos.').
-tratamento(hepatite, 'Repouse, dieta pobre em gorduras, evite álcool e tenha acompanhamento médico para monitorizar o fígado.').
-tratamento(malaria, 'Tratamento hospitalar com medicamentos antimaláricos específicos.').
-tratamento(laringite, 'Poupe a voz, hidrate-se com líquidos mornos e evite ambientes com fumo ou ar seco.').
-tratamento(otite, 'Uso de gotas otológicas ou antibióticos sob prescrição e manter o ouvido seco.').
-tratamento(conjuntivite, 'Lave os olhos com soro, use colírios específicos e evite partilhar toalhas ou tocar nos olhos.').
-tratamento(varicela, 'Cuidado com a higiene das borbulhas, use loções para a comichão e evite o contacto com grávidas.').
-tratamento(amigdalite, 'Gargarejos com água salgada, hidratação e antibióticos se a origem for bacteriana.').
+tratamento(infecao_urinaria, 'Contacte um médico para prescrição de antibióticos; aumente a ingestão de água.').
+tratamento(enxaqueca, 'Repouse num local escuro e silencioso e evite gatilhos de dor.').
+tratamento(gripe_a, 'Contacte o médico ou a Saúde 24 para avaliar o uso de antivirais nas primeiras 48h.').
+tratamento(tuberculose, 'Contacte um médico para tratamento rigoroso com antibióticos e acompanhamento constante.').
+tratamento(hipertensao, 'Consulte o seu médico para ajuste de medicação diária e redução do sal.').
+tratamento(diabetes, 'Contacte o médico para controlo da glicémia e ajuste de insulina ou hipoglicemiantes.').
+tratamento(ataque_cardiaco, 'EMERGÊNCIA: Ligue imediatamente para o 112; não tente deslocar-se por meios próprios.').
+tratamento(pneumonia, 'Contacte um médico para iniciar antibióticos e fisioterapia respiratória.').
+tratamento(rinite, 'Evite contacto com pó ou pólen e use soro fisiológico ou anti-histamínicos.').
+tratamento(lombalgia, 'Repouse em posição confortável e use compressas quentes na zona lombar.').
+tratamento(sinusite, 'Faça lavagens nasais frequentes com soro fisiológico e reforce a hidratação.').
+tratamento(hepatite, 'Requer acompanhamento médico para monitorizar o fígado e dieta sem gorduras.').
+tratamento(malaria, 'Requer tratamento hospitalar imediato; dirija-se à urgência.').
+tratamento(laringite, 'Poupe a voz, hidrate-se com líquidos mornos e evite ambientes secos.').
+tratamento(otite, 'Contacte um médico para prescrição de gotas ou antibióticos; mantenha o ouvido seco.').
+tratamento(conjuntivite, 'Lave os olhos com soro, use toalhas individuais e evite tocar nos olhos.').
+tratamento(varicela, 'Use loções para a comichão e evite o contacto com grávidas ou bebés.').
+tratamento(amigdalite, 'Faça gargarejos com água salgada e mantenha uma boa hidratação.').
 
 % Processamento de Tratamentos
 get_tratamentos([], []).

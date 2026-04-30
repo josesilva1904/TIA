@@ -1,42 +1,35 @@
+% ==========================================
+% FICHEIRO: forwardchain.pl
+% ==========================================
+
 :- op(800, fx, if).
 :- op(700, xfx, then).
 :- op(500, xfy, or).
 :- op(400, xfy, and).
 
-:- consult('baseconhecimento.pl').
-:- dynamic fact/1.
+:- dynamic(fact/1).
+:- dynamic(diagnostico/3). % NOVO: Guarda Doenca, Certeza e Condicao exata!
 
-diagnostico :-
-    retractall(fact(_)), 
-    write('--- Sistema de Diagnostico Especialista ---'), nl,
-    write('Introduza os sintomas (ex: febre:1.0 . ). Escreva "fim." para terminar.'), nl,
-    ler_sintomas,
-    nl, write('A processar diagnostico...'), nl,
-    result,
-    write('Analise concluida.'), nl.
-
-ler_sintomas :-
-    write('> '), read(Sintoma),
-    (Sintoma == fim -> 
-        true 
-    ; 
-        (Sintoma = S:C -> assert(fact(S:C)) ; (atom(Sintoma) -> assert(fact(Sintoma:1.0)) ; write('Erro de formato.'))),
-        ler_sintomas
-    ).
-
+% Motor Forward Chaining (Loop Principal)
 result :-
-    new_derived_fact(P), 
+    new_derived_fact(_), 
     !, 
-    format('*** Diagnostico Derivado (Forward Chaining): ~w ***~n', [P]),
     result.
 result :- true.
 
+% A evolução do código do professor
 new_derived_fact(Concl) :-
-    if Cond then Concl:_,
-    \+ fact(Concl:_),
-    composed_fact(Cond),
-    assert(fact(Concl:1.0)).
+    if Cond then Concl:ProbRegra,
+    \+ diagnostico(Concl, _, _),           % Garante que nao repete a doenca
+    avaliar_certeza(Cond, ProbSintomas),
+    ProbSintomas > 0.0,
+    CertezaFinal is ProbRegra * ProbSintomas,
+    assert(diagnostico(Concl, CertezaFinal, Cond)). % Guarda a regra EXATA que disparou
 
-composed_fact(Sintoma) :- fact(Sintoma:_).
-composed_fact(A and B) :- !, composed_fact(A), composed_fact(B).
-composed_fact(A or B) :- (composed_fact(A) ; composed_fact(B)), !.
+% --- MOTOR MATEMÁTICO ---
+avaliar_certeza(A and B, P) :- 
+    !, avaliar_certeza(A, PA), avaliar_certeza(B, PB), P is min(PA, PB).
+avaliar_certeza(A or B, P) :- 
+    !, avaliar_certeza(A, PA), avaliar_certeza(B, PB), P is max(PA, PB).
+avaliar_certeza(Sintoma, P) :- 
+    atom(Sintoma), ( fact(Sintoma:P) -> true ; P = 0.0 ).
