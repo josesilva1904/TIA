@@ -1,8 +1,7 @@
 :- set_prolog_flag(encoding, utf8).
-doencas([covid19,gastroenterite,infecao_urinaria,enxaqueca,gripe_a,tuberculose,hipertensao,diabetes,ataque_cardiaco,pneumonia,rinite,lombalgia,sinusite,hepatite,malaria,laringite,otite,conjuntivite,varicela,amigdalite]).
+doencas([gastroenterite,infecao_urinaria,enxaqueca,gripe_a,tuberculose,hipertensao,diabetes,ataque_cardiaco,pneumonia,rinite,lombalgia,sinusite,hepatite,malaria,laringite,otite,conjuntivite,varicela,amigdalite]).
 
 % Tratamentos baseados nas doenças listadas
-tratamento(covid19, 'Repouse, hidrate-se e monitore a oxigenação. Use antitérmicos se necessário e isole-se.').
 tratamento(gastroenterite, 'Foco total na reidratação (soro caseiro) e dieta leve (arroz, canja, banana).').
 tratamento(infecao_urinaria, 'Consulte um médico para prescrição de antibióticos e aumente a ingestão de água.').
 tratamento(enxaqueca, 'Repouse num local escuro e silencioso. Tome a medicação prescrita e evite gatilhos.').
