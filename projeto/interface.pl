@@ -4,11 +4,11 @@
 :- op(700, xfx, then).
 :- op(500, xfy, or).
 :- op(400, xfy, and).
-:- op(800, xfx, <=).
 :- dynamic(fact/1).
 
-% Carrega todos os modulos na ordem correta
-:- [basedados, forwardchain, baseconhecimento, proof, certainty].
+% Carrega APENAS os ficheiros necessários para o Forward Chaining!
+% (podes manter os ficheiros certainty.pl e proof.pl na pasta, mas o programa já não olha para eles)
+:- [basedados, forwardchain, baseconhecimento].
 
 % --- Menu Principal ---
 menu :-
@@ -16,18 +16,26 @@ menu :-
     write('Bem Vindo ao programa de ajuda medico!'), nl,
     write('Iremos colocar-lhe algumas questoes relativas aos seus sintomas.'), nl, 
     write('Menu:'), nl,
-    write('** 1- Iniciar Diagnostico'), nl,
+    write('** 1- Iniciar Diagnostico (Motor: Forward Chaining)'), nl,
     write('** 2- Sair'), nl,
     write('> '), read(B),
     escolha(B).
 
-escolha(1) :- perguntas, resultado.
-escolha(2) :- nl, write('Ate a proxima! As melhoras.'), nl, halt.
+escolha(1) :- 
+    perguntas, 
+    nl, write('--- A PROCESSAR DIAGNOSTICO (FORWARD CHAINING) ---'), nl,
+    result, % Chama diretamente o loop de inferência do ficheiro forwardchain.pl
+    verificar_se_encontrou_algo,
+    nova_avaliacao.
+
+escolha(2) :- 
+    nl, write('Ate a proxima! As melhoras.'), nl, halt.
+
 escolha(_) :- 
     nl, write('Erro: Introduza uma opcao valida (1 ou 2)! Nao se esqueca do ponto final.'), nl, 
     menu.
 
-% --- Bloco de Perguntas (Seleção Múltipla Otimizada) ---
+% --- Bloco de Perguntas ---
 perguntas :-
     mostrar_menu_sintomas,
     ler_opcoes_sintomas.
@@ -59,52 +67,43 @@ ler_opcoes_sintomas :-
         ler_opcoes_sintomas
     ).
 
-% --- Dicionario de Mapeamento (ID -> Sintoma : Confianca Base) ---
-sintoma_map(1, tosse, 0.9).
-sintoma_map(2, febre, 0.7).
-sintoma_map(3, dificuldade_respirar, 1.0).
-sintoma_map(4, fadiga, 0.7).
-sintoma_map(5, dores_musculares, 0.5).
-sintoma_map(6, dor_cabeca, 0.9).
-sintoma_map(7, dor_garganta, 0.8).
-sintoma_map(8, congestao_nasal, 0.9).
-sintoma_map(9, nauseas, 0.8).
-sintoma_map(9, vomitos, 0.9).
-sintoma_map(10, diarreia, 0.9).
-sintoma_map(11, colicas, 0.7).
-sintoma_map(12, dor_urinar, 1.0).
-sintoma_map(12, vontade_urinar, 0.8).
-sintoma_map(13, urina_turva, 0.7).
-sintoma_map(13, sangue_urina, 1.0).
-sintoma_map(14, sensibilidade_luz, 0.8).
-sintoma_map(14, sensibilidade_som, 0.7).
-sintoma_map(15, zumbido_ouvido, 0.6).
-sintoma_map(15, dor_ouvidos, 0.8).
-sintoma_map(16, comichao_olhos, 0.7).
-sintoma_map(16, comichao_pele, 0.6).
-sintoma_map(17, dor_peito, 1.0).
-sintoma_map(18, suar_excessivamente, 0.7).
-sintoma_map(19, sede_excessiva, 0.8).
-sintoma_map(19, fome_excessiva, 0.7).
-sintoma_map(20, confusao_mental, 0.9).
-sintoma_map(20, desmaio, 1.0).
-sintoma_map(21, perda_paladar, 0.8).
-sintoma_map(21, perda_olfato, 0.8).
-sintoma_map(22, calafrios, 0.6).
-
-% --- NOVO: Sintomas que pedem intensidade ---
-pede_intensidade(dor_cabeca, 'Qual o nivel da sua dor de cabeca?').
-pede_intensidade(dor_garganta, 'Qual a intensidade da dor de garganta?').
-pede_intensidade(dores_musculares, 'Qual a intensidade das dores musculares?').
-pede_intensidade(dor_peito, 'Qual a intensidade da dor no peito?').
-pede_intensidade(dor_urinar, 'Qual a intensidade da dor ao urinar?').
-pede_intensidade(dor_ouvidos, 'Qual o nivel da dor de ouvidos?').
-pede_intensidade(colicas, 'Qual a intensidade das colicas abdominais?').
+% --- Dicionario de Mapeamento (Apenas os nomes dos sintomas) ---
+sintoma_map(1, tosse).
+sintoma_map(2, febre).
+sintoma_map(3, dificuldade_respirar).
+sintoma_map(4, fadiga).
+sintoma_map(5, dores_musculares).
+sintoma_map(6, dor_cabeca).
+sintoma_map(7, dor_garganta).
+sintoma_map(8, congestao_nasal).
+sintoma_map(9, nauseas).
+sintoma_map(9, vomitos).
+sintoma_map(10, diarreia).
+sintoma_map(11, colicas).
+sintoma_map(12, dor_urinar).
+sintoma_map(12, vontade_urinar).
+sintoma_map(13, urina_turva).
+sintoma_map(13, sangue_urina).
+sintoma_map(14, sensibilidade_luz).
+sintoma_map(14, sensibilidade_som).
+sintoma_map(15, zumbido_ouvido).
+sintoma_map(15, dor_ouvidos).
+sintoma_map(16, comichao_olhos).
+sintoma_map(16, comichao_pele).
+sintoma_map(17, dor_peito).
+sintoma_map(18, suar_excessivamente).
+sintoma_map(19, sede_excessiva).
+sintoma_map(19, fome_excessiva).
+sintoma_map(20, confusao_mental).
+sintoma_map(20, desmaio).
+sintoma_map(21, perda_paladar).
+sintoma_map(21, perda_olfato).
+sintoma_map(22, calafrios).
 
 % --- Processador da Lista ---
 processar_opcoes([]).
 processar_opcoes([Id|Resto]) :-
-    findall((Sintoma, Conf), sintoma_map(Id, Sintoma, Conf), SintomasEncontrados),
+    findall(Sintoma, sintoma_map(Id, Sintoma), SintomasEncontrados),
     (SintomasEncontrados \= [] ->
         registar_sintomas(SintomasEncontrados)
     ;
@@ -112,52 +111,30 @@ processar_opcoes([Id|Resto]) :-
     ),
     processar_opcoes(Resto).
 
+% Regista os sintomas com o valor 1.0 (para ser compativel com o formato Concl:_)
 registar_sintomas([]).
-registar_sintomas([(Sintoma, DefaultConf)|Resto]) :-
-    ( pede_intensidade(Sintoma, PerguntaTexto) ->
-        % Se for uma dor, pergunta a intensidade
-        nl, format('~w (Indique um valor de 1 a 10): ', [PerguntaTexto]),
-        ler_intensidade(Valor),
-        ConfCalculada is Valor / 10.0, % Converte 8 em 0.8
-        assert(fact(Sintoma:ConfCalculada))
-    ;
-        % Se for febre, tosse, etc., assume o valor base
-        assert(fact(Sintoma:DefaultConf))
-    ),
+registar_sintomas([Sintoma|Resto]) :-
+    assert(fact(Sintoma:1.0)),
     registar_sintomas(Resto).
 
-% --- Tratamento de Erro na Intensidade ---
-ler_intensidade(Valor) :-
-    read(Entrada),
-    ( number(Entrada), Entrada >= 1, Entrada =< 10 ->
-        Valor = Entrada
+% --- Verificador (Caso o Forward Chain não encontre nada) ---
+verificar_se_encontrou_algo :-
+    doencas(ListaDoencas),
+    findall(D, (member(D, ListaDoencas), fact(D:_)), DoencasApanhadas),
+    ( DoencasApanhadas == [] ->
+        write('Nao foi possivel derivar um diagnostico conclusivo com as regras atuais.'), nl
     ;
-        write('Erro: Introduza um numero entre 1 e 10 (nao esqueca o ponto final): '),
-        ler_intensidade(Valor)
+        true % O predicado 'result' do teu forwardchain.pl já tratou de imprimir as doenças encontradas.
     ).
 
-% --- Resultado e Nova Avaliacao ---
-resultado :- 
-    doencas(L1),
-    get_certainties(L1, L2),
-    get_proofs(L2, L3),
-    get_tratamentos(L3, L4),
-    (
-        (L4 = [] -> 
-            nl, write('Nao foi possivel identificar a doenca com base nos sintomas indicados. Consulte um medico.'), nl
-        ) ; (
-            apresentar_resultados(L4)
-        )
-    ),
-    nova_avaliacao.
-
+% --- Nova Avaliacao ---
 nova_avaliacao :-
     nl, write('--- Deseja fazer uma nova avaliacao? ---'), nl,
     write('1- Sim'), nl,
     write('2- Nao'), nl,
     write('> '), read(Opcao),
     ( Opcao == 1 -> 
-        menu % Volta ao inicio (o menu faz o retractall)
+        menu 
     ; Opcao == 2 -> 
         nl, write('Obrigado por usar o sistema medico. As melhoras!'), nl, halt
     ; 

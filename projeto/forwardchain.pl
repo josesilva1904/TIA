@@ -38,6 +38,5 @@ new_derived_fact(Concl) :-
     assert(fact(Concl:1.0)).
 
 composed_fact(Sintoma) :- fact(Sintoma:_).
-composed_fact((Cond)) :- !, composed_fact(Cond).
 composed_fact(A and B) :- !, composed_fact(A), composed_fact(B).
 composed_fact(A or B) :- (composed_fact(A) ; composed_fact(B)), !.
