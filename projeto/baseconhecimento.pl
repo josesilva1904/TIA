@@ -33,24 +33,34 @@ if (tosse and febre and dificuldade_respirar) and (fadiga or dor_garganta or rou
 
 
 % ========================================================
-% PARTE B: REGRAS EXTRAIDAS AUTOMATICAMENTE (DECISION TREE)
+% PARTE B: REGRAS EXTRAIDAS (DECISION TREE SEM PRUNING)
 % ========================================================
 
-% Regra 1: Se tem dor de garganta (caminho direto à esquerda)
-if (dor_garganta) then gripe_a:0.85.
+% --- RAMO PRINCIPAL: TEM DOR DE GARGANTA ---
+if (dor_garganta and dificuldade_respirar and dor_cabeca) then varicela:0.85.
+if (dor_garganta and dificuldade_respirar) then amigdalite:0.85.
+if (dor_garganta) then gripe_a:0.85. % Nota: O Prolog vai priorizar as regras mais longas primeiro.
 
-% Regra 2: Caminho -> Não tem dor garganta, TEM febre, TEM fadiga, TEM tosse
+% --- RAMO PRINCIPAL: NÃO TEM DOR DE GARGANTA, TEM FEBRE ---
+if (febre and fadiga and tosse and dificuldade_respirar) then pneumonia:0.85.
+if (febre and fadiga and tosse and dores_musculares) then sinusite:0.85.
 if (febre and fadiga and tosse) then tuberculose:0.85.
+if (febre and fadiga and dor_cabeca) then conjuntivite:0.85.
+if (febre and fadiga) then hepatite:0.85.
+if (febre and dores_musculares) then gastroenterite:0.85.
+if (febre) then laringite:0.85.
 
-% Regra 3: Caminho -> Não tem dor garganta, TEM febre, TEM fadiga, NÃO tem tosse
-% Como o sistema Prolog verifica presenças, simplificamos para a base de sintomas
-if (febre and fadiga) then hepatite:0.80.
-
-% Regra 4: Caminho -> Não tem dor garganta, TEM febre, NÃO tem fadiga
-if (febre) then gastroenterite:0.75.
-
-% Regra 5: Caminho -> NÃO dor garganta, NÃO febre, TEM fadiga
+% --- RAMO PRINCIPAL: NÃO TEM DOR DE GARGANTA, NÃO TEM FEBRE, TEM FADIGA ---
+if (fadiga and tosse) then rinite:0.85.
+if (fadiga and dificuldade_respirar) then ataque_cardiaco:0.85.
 if (fadiga) then diabetes:0.85.
 
-% Regra 6: Caminho -> NÃO dor garganta, NÃO febre, NÃO fadiga, TEM dor de cabeça
+% --- RAMO PRINCIPAL: NÃO TEM DOR DE GARGANTA, NÃO FEBRE, NÃO FADIGA ---
+if (dor_cabeca and dificuldade_respirar) then hipertensao:0.85.
 if (dor_cabeca) then enxaqueca:0.85.
+if (dores_musculares) then lombalgia:0.85.
+if (dor_urinar) then infecao_urinaria:0.85.
+
+% O caso final (quando é "Não" a tudo na árvore, recai na Otite no teu dataset sintético)
+% No Prolog exigimos pelo menos um sintoma chave para não disparar do nada.
+if (sensibilidade_luz or zumbido_ouvido) then otite:0.80.
