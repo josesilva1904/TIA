@@ -1,5 +1,5 @@
 import warnings
-warnings.filterwarnings("ignore") # Esconde avisos desnecessários no terminal
+warnings.filterwarnings("ignore")
 
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -7,12 +7,13 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_community.llms import Ollama
 from langchain_core.prompts import PromptTemplate
-from langchain.chains import RetrievalQA
+
+# AQUI ESTÁ A CORREÇÃO: Usar o langchain_classic
+from langchain_classic.chains import RetrievalQA
 
 # ==========================================
-# 1. PROMPT ENGINEERING (O "Cérebro" do Agente)
+# 1. PROMPT ENGINEERING
 # ==========================================
-# Aqui forçamos o LLM a raciocinar de forma estruturada e a citar fontes.
 prompt = PromptTemplate(
     input_variables=["context", "question"],
     template="""
@@ -35,7 +36,7 @@ Responde ESTRITAMENTE com a seguinte estrutura:
 **Nível de Urgência:** [EMERGÊNCIA, URGENTE, CONSULTA ou AUTO-CUIDADO]
 **Encaminhamento:** [Ação que o doente deve tomar]
 **Justificação Clínica:** [Explicação da decisão com base nos sintomas]
-**Citação:** [Cita o nome ou secção do Protocolo SNS24 utilizado para esta decisão]
+**Citação:** [Cita o nome ou secção do Protocolo SNS24 utilizado]
 """
 )
 
@@ -43,15 +44,14 @@ Responde ESTRITAMENTE com a seguinte estrutura:
 # 2. PIPELINE RAG (Indexação e Vetores)
 # ==========================================
 print("[1/3] A carregar a Base de Conhecimento SNS24...")
+# ATENÇÃO: O ficheiro sns24_kb.txt TEM de estar na mesma pasta (P2)!
 loader = TextLoader("sns24_kb.txt", encoding="utf-8")
 documentos = loader.load()
 
-# Chunking: Divide o texto em blocos de 500 caracteres
 splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 chunks = splitter.split_documents(documentos)
 
 print("[2/3] A preparar a Vector DB (ChromaDB)...")
-# Usamos o nomic-embed-text que descarregaste no Ollama
 embeddings = OllamaEmbeddings(model="nomic-embed-text")
 vector_db = Chroma.from_documents(
     documents=chunks, 
@@ -64,20 +64,19 @@ vector_db = Chroma.from_documents(
 # ==========================================
 print("[3/3] A iniciar o Agente LLM...")
 chatbot = RetrievalQA.from_chain_type(
-    llm=Ollama(model="llama3.2", temperature=0.1), # Temp baixa para ser clínico e factual
-    retriever=vector_db.as_retriever(search_kwargs={"k": 3}), # Vai buscar os 3 blocos mais relevantes
+    llm=Ollama(model="llama3.2", temperature=0.1),
+    retriever=vector_db.as_retriever(search_kwargs={"k": 3}),
     chain_type_kwargs={"prompt": prompt}
 )
 
 # ==========================================
-# 4. INTERFACE DO CHATBOT (Loop de Conversa)
+# 4. INTERFACE DO CHATBOT
 # ==========================================
 print("\n" + "="*60)
 print(" 🏥 AGENTE SNS24 - TRIAGEM INTELIGENTE ".center(60))
 print("="*60)
 print("Olá! Sou o assistente virtual de triagem SNS24.")
-print("Por favor, descreva os sintomas que está a sentir.")
-print("(Escreva 'sair' para terminar a sessão)\n")
+print("Escreva 'sair' para terminar a sessão\n")
 
 while True:
     sintomas = input("👤 Doente: ")
@@ -88,7 +87,6 @@ while True:
         
     print("⏳ A consultar protocolos Altitude...")
     
-    # O LLM processa a pergunta + o contexto RAG e gera a resposta
     resposta = chatbot.invoke(sintomas)
     
     print(f"\n🩺 Agente SNS24:\n{resposta['result']}\n")
