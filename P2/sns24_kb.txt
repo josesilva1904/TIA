@@ -1,206 +1,156 @@
-# Base de Conhecimento SNS24 — Protocolos de Triagem Altitude
-# Ficheiro para uso com RAG no Projecto P2
-# Fonte: Adaptado dos protocolos públicos SNS24 / Linha de Saúde
+# Base de Conhecimento SNS24 — Protocolos de Triagem Altitude (Adaptado)
+# Ficheiro para uso com RAG no Projecto P2 (Sistemas Periciais + LLM)
 # ============================================================
 
-## PROTOCOLO: DOR NO PEITO
-
-### Sintomas de EMERGÊNCIA (ligar 112 imediatamente)
-- Dor no peito com irradiação para o braço esquerdo, mandíbula ou costas
-- Dor intensa no peito com suor frio e náuseas
-- Dor no peito com falta de ar severa e lábios azulados
-- Dor no peito em doente com historial cardíaco
-- Palpitações com perda de consciência
-- Pressão ou aperto no peito que não passa em repouso
-
-### Sintomas URGENTES (ir ao Serviço de Urgência nas próximas 2h)
-- Dor no peito que piora com o esforço
-- Dor no peito com taquicardia (>100 bpm)
-- Dor no peito com história de hipertensão não controlada
-
-### Sintomas de CONSULTA (médico de família em 24-48h)
-- Dor torácica tipo muscular, agravada com palpação
-- Dor intercostal após esforço físico
-- Dor leve e passageira sem outros sintomas associados
-
-### Encaminhamento
-- EMERGÊNCIA → 112 / INEM
-- URGENTE → Serviço de Urgência Hospitalar
-- CONSULTA → Médico de família / Centro de Saúde
+## PROTOCOLO: ATAQUE CARDÍACO
+Sintomas Associados: Dor no peito, dificuldade em respirar, fadiga, dores musculares, náuseas, vómitos, suar excessivamente, desmaio.
+Nível de Urgência: EMERGÊNCIA
+Encaminhamento: 112 / INEM
+Justificação e Tratamento: EMERGÊNCIA: Ligue imediatamente para o 112; não tente deslocar-se por meios próprios. Trata-se de uma condição de risco de vida iminente.
 
 ---
 
-## PROTOCOLO: DIFICULDADE RESPIRATÓRIA / FALTA DE AR
-
-### Sintomas de EMERGÊNCIA
-- Falta de ar súbita e severa em repouso
-- Cianose (lábios ou unhas azuladas)
-- Incapacidade de completar frases por falta de ar
-- Criança com tiragem (esforço respiratório visível)
-- Falta de ar com estridor (som de aperto ao respirar)
-- Saturação O2 <90% (se medida)
-
-### Sintomas URGENTES
-- Falta de ar que piora progressivamente
-- Sibilância (pieira) não controlada com broncodilatador habitual
-- Falta de ar com febre alta (>39°C)
-- Doente asmático sem melhoria após inalador
-
-### Sintomas de CONSULTA
-- Tosse crónica com ligeira falta de ar ao esforço
-- Dispneia leve após esforço intenso, sem outros sintomas
-
-### AUTO-CUIDADO
-- Tosse seca ocasional sem falta de ar
-- Ligeira obstrução nasal sem dificuldade respiratória
+## PROTOCOLO: MALÁRIA
+Sintomas Associados: Febre, calafrios, dor de garganta, dores musculares, fadiga.
+Nível de Urgência: URGENTE
+Encaminhamento: Serviço de Urgência Hospitalar
+Justificação e Tratamento: Requer tratamento hospitalar imediato; dirija-se à urgência. Infeção grave que necessita de intervenção médica rápida.
 
 ---
 
-## PROTOCOLO: FEBRE
-
-### Critérios de idade e temperatura
-
-**Crianças <3 meses:**
-- Qualquer febre >38°C → EMERGÊNCIA (ir imediatamente ao SU pediátrico)
-
-**Crianças 3-36 meses:**
-- Febre >39°C sem causa identificada → URGENTE
-- Febre com convulsão → EMERGÊNCIA (112)
-- Febre com manchas purpúricas na pele → EMERGÊNCIA (112)
-
-**Adultos:**
-- Febre >39.5°C com rigidez da nuca → EMERGÊNCIA (meningite)
-- Febre >38.5°C com confusão mental → URGENTE
-- Febre >38°C com mais de 5 dias sem melhoria → CONSULTA
-- Febre baixa (<38.5°C) com sintomas leves → AUTO-CUIDADO
-
-### Medidas de auto-cuidado para febre leve
-- Paracetamol 1g cada 6-8h (adultos)
-- Hidratação abundante (água, chás)
-- Repouso
-- Reavaliar em 24-48h se não melhorar
+## PROTOCOLO: TUBERCULOSE
+Sintomas Associados: Tosse, febre, fadiga, dor no peito, suar excessivamente.
+Nível de Urgência: CONSULTA / URGENTE
+Encaminhamento: Médico de Família ou Urgência
+Justificação e Tratamento: Contacte um médico para tratamento rigoroso com antibióticos e acompanhamento constante. Risco de contágio respiratório severo.
 
 ---
 
-## PROTOCOLO: DOR DE CABEÇA / CEFALEIA
-
-### Sintomas de EMERGÊNCIA ("pior dor de cabeça da vida")
-- Dor de cabeça súbita e muito intensa (thunderclap headache) → suspeita de hemorragia subaracnoideia
-- Dor de cabeça com rigidez da nuca e febre → meningite
-- Dor de cabeça com alteração do estado de consciência
-- Dor de cabeça com fraqueza ou dormência de um lado do corpo → AVC
-- Dor de cabeça com alterações visuais súbitas
-- Cefaleia após traumatismo craniano
-
-### Sintomas URGENTES
-- Dor de cabeça intensa não controlada com analgésicos habituais
-- Cefaleia com vómitos persistentes (>3 episódios)
-- Dor de cabeça em grávida (pode ser pré-eclâmpsia)
-
-### AUTO-CUIDADO / CONSULTA
-- Cefaleia tensional (aperto bilateral, sem náuseas)
-- Enxaqueca conhecida com padrão habitual
-- Dor de cabeça leve após má noite de sono ou stress
+## PROTOCOLO: PNEUMONIA
+Sintomas Associados: Tosse, febre, dificuldade em respirar, fadiga, náuseas, vómitos, dor no peito, confusão mental.
+Nível de Urgência: CONSULTA / URGENTE
+Encaminhamento: Médico de Família ou Urgência
+Justificação e Tratamento: Contacte um médico para iniciar antibióticos e fisioterapia respiratória. Comprometimento pulmonar agudo.
 
 ---
 
-## PROTOCOLO: DOR ABDOMINAL
-
-### Sintomas de EMERGÊNCIA
-- Dor abdominal súbita e severa com abdómen rígido (abdómen em tábua)
-- Dor abdominal com sangue nas fezes ou vómitos com sangue
-- Suspeita de gravidez ectópica (dor + amenorreia + teste de gravidez positivo)
-- Dor abdominal com hipotensão (tontura ao levantar)
-- Cólica renal com febre (pielonefrite ou sépsis urinária)
-
-### Sintomas URGENTES
-- Dor abdominal intensa localizada no quadrante inferior direito (suspeita de apendicite)
-- Dor epigástrica intensa em doente com história de úlcera péptica
-- Dor abdominal com impossibilidade de andar direito
-
-### Sintomas de CONSULTA
-- Dor abdominal recorrente sem sinais de alarme
-- Cólicas menstruais intensas
-- Dor abdominal com alteração do trânsito intestinal (obstipação/diarreia)
-
-### AUTO-CUIDADO
-- Desconforto abdominal leve após refeição
-- Gases e distensão abdominal sem outros sintomas
+## PROTOCOLO: INFEÇÃO URINÁRIA
+Sintomas Associados: Dor ao urinar, vontade frequente de urinar, urina turva, sangue na urina.
+Nível de Urgência: CONSULTA
+Encaminhamento: Médico de Família ou Centro de Saúde
+Justificação e Tratamento: Contacte um médico para prescrição de antibióticos; aumente a ingestão de água.
 
 ---
 
-## PROTOCOLO: TONTURAS / VERTIGENS
-
-### Sintomas de EMERGÊNCIA
-- Tontura com fraqueza súbita de um lado do corpo → AVC
-- Tontura com diplopia (visão dupla) e disfagia → AVC do tronco cerebral
-- Tontura com perda de consciência
-- Síncope (desmaio) completo sem causa evidente
-
-### Sintomas URGENTES
-- Vertigem intensa com vómitos persistentes e impossibilidade de manter equilíbrio
-- Tontura em doente cardíaco com palpitações
-
-### AUTO-CUIDADO / CONSULTA
-- Vertigem posicional benigna (piora ao virar a cabeça, passa em segundos)
-- Tontura leve após levantar rapidamente (hipotensão ortostática)
-- Tonturas em contexto de jejum prolongado
+## PROTOCOLO: GRIPE A
+Sintomas Associados: Tosse, febre, calafrios, fadiga, dores musculares, dor de cabeça, dor de garganta, congestão nasal, dor no peito.
+Nível de Urgência: CONSULTA
+Encaminhamento: SNS24 ou Centro de Saúde
+Justificação e Tratamento: Contacte o médico ou a Saúde 24 para avaliar o uso de antivirais nas primeiras 48h.
 
 ---
 
-## PROTOCOLO: SINTOMAS URINÁRIOS
-
-### Sintomas URGENTES / EMERGÊNCIA
-- Retenção urinária aguda (incapacidade de urinar com bexiga cheia)
-- Dor lombar intensa com febre e calafrios (pielonefrite)
-- Hematúria macroscópica (sangue visível na urina) em adulto >40 anos
-
-### Sintomas de CONSULTA
-- Disúria (ardor ao urinar) com polaquiúria (urinar muitas vezes) sem febre
-- Infecção urinária baixa sem complicações (cistite)
-
-### AUTO-CUIDADO (se sem febre, sem dor lombar)
-- Beber bastante água (>2L/dia)
-- Evitar cafeína e álcool
-- Reavaliar em 48h se não melhorar → consulta
+## PROTOCOLO: HIPERTENSÃO
+Sintomas Associados: Dor de cabeça, zumbido no ouvido, dificuldade em respirar, náuseas, vómitos, dor no peito.
+Nível de Urgência: CONSULTA
+Encaminhamento: Médico de Família
+Justificação e Tratamento: Consulte o seu médico para ajuste de medicação diária e redução do sal. Monitorização da pressão arterial necessária.
 
 ---
 
-## PROTOCOLO: TRAUMATISMOS / QUEDAS
-
-### EMERGÊNCIA (112)
-- Traumatismo craniano com perda de consciência
-- Suspeita de fractura de coluna (dor cervical ou lombar após queda, formigueiros nos membros)
-- Fractura exposta (osso visível)
-- Hemorragia não controlável
-- Traumatismo em criança pequena (<2 anos) com qualquer queda
-
-### URGENTE
-- Suspeita de fractura de membro (deformidade, impotência funcional, dor intensa)
-- Ferida profunda com necessidade de sutura
-- Traumatismo no tórax com dor à respiração
-
-### CONSULTA
-- Entorse com edema e dor moderada
-- Contusão sem deformidade
+## PROTOCOLO: DIABETES (Descompensação)
+Sintomas Associados: Sede excessiva, vontade de urinar frequentemente, fadiga, fome excessiva.
+Nível de Urgência: CONSULTA
+Encaminhamento: Médico de Família ou Endocrinologista
+Justificação e Tratamento: Contacte o médico para controlo da glicémia e ajuste de insulina ou hipoglicemiantes.
 
 ---
 
-## PROTOCOLO: ALERGIAS / REACÇÕES ALÉRGICAS
+## PROTOCOLO: HEPATITE
+Sintomas Associados: Náuseas, vómitos, febre, fadiga, dores musculares.
+Nível de Urgência: CONSULTA
+Encaminhamento: Médico Especialista / Centro de Saúde
+Justificação e Tratamento: Requer acompanhamento médico para monitorizar o fígado e dieta sem gorduras.
 
-### EMERGÊNCIA (Anafilaxia — 112)
-- Urticária generalizada com dificuldade respiratória
-- Edema da língua, lábios ou garganta após contacto com alergénio
-- Hipotensão após picada de insecto ou medicamento
-- Qualquer reacção grave a alimento ou medicamento com sintomas sistémicos
+---
 
-### URGENTE
-- Urticária extensa de início súbito sem comprometimento respiratório
-- Reacção cutânea intensa a medicamento (ampolhas, esfoliação)
+## PROTOCOLO: OTITE
+Sintomas Associados: Sensibilidade à luz, zumbido no ouvido, comichão nos olhos, dor de ouvidos.
+Nível de Urgência: CONSULTA
+Encaminhamento: Médico de Família
+Justificação e Tratamento: Contacte um médico para prescrição de gotas ou antibióticos; mantenha o ouvido seco.
 
-### AUTO-CUIDADO
-- Urticária leve localizada (antihistamínico oral)
-- Rinite alérgica sazonal sem complicações
+---
+
+## PROTOCOLO: GASTROENTERITE
+Sintomas Associados: Náuseas, vómitos, diarreia, febre, dores musculares, dor de cabeça, cólicas.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Foco total na reidratação (soro caseiro) e dieta leve (arroz, canja, banana). Monitorizar evolução.
+
+---
+
+## PROTOCOLO: ENXAQUECA
+Sintomas Associados: Dor de cabeça, sensibilidade à luz, sensibilidade ao som, náuseas.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Repouse num local escuro e silencioso e evite gatilhos de dor.
+
+---
+
+## PROTOCOLO: RINITE
+Sintomas Associados: Congestão nasal, tosse, fadiga, perda de paladar, perda de olfato.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Evite contacto com pó ou pólen e use soro fisiológico ou anti-histamínicos.
+
+---
+
+## PROTOCOLO: LOMBALGIA
+Sintomas Associados: Dores musculares localizadas nas costas.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Repouse em posição confortável e use compressas quentes na zona lombar.
+
+---
+
+## PROTOCOLO: SINUSITE
+Sintomas Associados: Dor de cabeça, tosse, febre, fadiga, dores musculares.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Faça lavagens nasais frequentes com soro fisiológico e reforce a hidratação.
+
+---
+
+## PROTOCOLO: LARINGITE
+Sintomas Associados: Febre, dor de cabeça, náuseas, vómitos, calafrios, zumbido no ouvido, dor de ouvidos.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Poupe a voz, hidrate-se com líquidos mornos e evite ambientes secos.
+
+---
+
+## PROTOCOLO: CONJUNTIVITE
+Sintomas Associados: Febre, fadiga, dores musculares, dor de cabeça, calafrios, comichão na pele/olhos.
+Nível de Urgência: AUTO-CUIDADO
+Encaminhamento: Tratamento em Casa
+Justificação e Tratamento: Lave os olhos com soro, use toalhas individuais e evite tocar nos olhos. Infeção altamente contagiosa.
+
+---
+
+## PROTOCOLO: VARICELA
+Sintomas Associados: Tosse, febre, dificuldade respiratória, fadiga, dor de cabeça, perda de paladar, dor de garganta, calafrios, dor de ouvidos.
+Nível de Urgência: AUTO-CUIDADO / CONSULTA
+Encaminhamento: Tratamento em Casa (Isolamento)
+Justificação e Tratamento: Use loções para a comichão e evite o contacto com grávidas ou bebés.
+
+---
+
+## PROTOCOLO: AMIGDALITE
+Sintomas Associados: Tosse, febre, dificuldade em respirar, fadiga, dor de garganta.
+Nível de Urgência: AUTO-CUIDADO / CONSULTA
+Encaminhamento: Tratamento em Casa ou Médico de Família
+Justificação e Tratamento: Faça gargarejos com água salgada e mantenha uma boa hidratação.
 
 ---
 
@@ -212,14 +162,3 @@
 | URGENTE | Serviço de Urgência | <2 horas |
 | CONSULTA | Médico de família / SNS24 | 24-48 horas |
 | AUTO-CUIDADO | Tratamento em casa + reavaliação | Monitorizar |
-
----
-
-## NOTA SOBRE O SISTEMA SNS24
-
-O SNS24 é o serviço nacional de saúde 24h de Portugal, acessível pelo número 808 24 24 24.
-A linha SNS24 usa os protocolos de triagem clínica Altitude para encaminhar os doentes.
-A APP SNS24 permite auto-triagem de sintomas seguindo os mesmos fluxogramas.
-Os fluxogramas cobrem mais de 50 tipos de sintomas diferentes.
-O objetivo é encaminhar os doentes para o nível de cuidados adequado, evitando
-a utilização desnecessária dos serviços de urgência hospitalar.
