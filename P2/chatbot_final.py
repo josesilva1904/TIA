@@ -7,9 +7,17 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_community.llms import Ollama
 from langchain_core.prompts import PromptTemplate
-
-# AQUI ESTÁ A CORREÇÃO: Usar o langchain_classic
 from langchain_classic.chains import RetrievalQA
+
+# Importações para a interface visual
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.live import Live
+from rich.text import Text
+from rich.prompt import Prompt
+
+console = Console()
 
 # ==========================================
 # 1. PROMPT ENGINEERING
@@ -18,76 +26,91 @@ prompt = PromptTemplate(
     input_variables=["context", "question"],
     template="""
 És um enfermeiro de triagem do SNS24.
-A tua função é analisar os sintomas do doente usando APENAS os protocolos oficiais fornecidos abaixo.
-Não inventes diagnósticos fora destes documentos.
+Analisa os sintomas do doente usando APENAS os protocolos oficiais.
 
-Protocolos (Base de Conhecimento RAG): 
-{context} 
+Protocolos: {context} 
+Sintomas: {question}
 
-Sintomas do Doente: {question}
-
-Raciocínio Interno:
-1. Analisa os sintomas reportados.
-2. Procura sinais de alarme no contexto para determinar se é EMERGÊNCIA, URGENTE, CONSULTA ou AUTO-CUIDADO.
-
-Responde ESTRITAMENTE com a seguinte estrutura:
-
-**Sintomas Identificados:** [Breve resumo]
-**Nível de Urgência:** [EMERGÊNCIA, URGENTE, CONSULTA ou AUTO-CUIDADO]
-**Encaminhamento:** [Ação que o doente deve tomar]
-**Justificação Clínica:** [Explicação da decisão com base nos sintomas]
-**Citação:** [Cita o nome ou secção do Protocolo SNS24 utilizado]
+Responde ESTRITAMENTE com esta estrutura:
+Sintomas Identificados: [Resumo]
+Nível de Urgência: [EMERGÊNCIA, URGENTE, CONSULTA ou AUTO-CUIDADO]
+Encaminhamento: [Ação]
+Justificação Clínica: [Explicação]
+Citação: [Nome do Protocolo]
 """
 )
 
 # ==========================================
-# 2. PIPELINE RAG (Indexação e Vetores)
+# 2. PIPELINE RAG
 # ==========================================
-print("[1/3] A carregar a Base de Conhecimento SNS24...")
-# ATENÇÃO: O ficheiro sns24_kb.txt TEM de estar na mesma pasta (P2)!
-loader = TextLoader("sns24_kb.txt", encoding="utf-8")
-documentos = loader.load()
+with console.status("[bold cyan]A carregar Base de Conhecimento SNS24...", spinner="dots"):
+    loader = TextLoader("sns24_kb.txt", encoding="utf-8")
+    documentos = loader.load()
+    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    chunks = splitter.split_documents(documentos)
+    
+    embeddings = OllamaEmbeddings(model="nomic-embed-text")
+    vector_db = Chroma.from_documents(
+        documents=chunks, 
+        embedding=embeddings, 
+        persist_directory="./chroma_sns24_final"
+    )
 
-splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-chunks = splitter.split_documents(documentos)
-
-print("[2/3] A preparar a Vector DB (ChromaDB)...")
-embeddings = OllamaEmbeddings(model="nomic-embed-text")
-vector_db = Chroma.from_documents(
-    documents=chunks, 
-    embedding=embeddings, 
-    persist_directory="./chroma_sns24_final"
-)
-
-# ==========================================
-# 3. INICIAR O MODELO (llama3.2)
-# ==========================================
-print("[3/3] A iniciar o Agente LLM...")
-chatbot = RetrievalQA.from_chain_type(
-    llm=Ollama(model="llama3.2", temperature=0.1),
-    retriever=vector_db.as_retriever(search_kwargs={"k": 3}),
-    chain_type_kwargs={"prompt": prompt}
-)
+    chatbot = RetrievalQA.from_chain_type(
+        llm=Ollama(model="llama3.2", temperature=0.1),
+        retriever=vector_db.as_retriever(search_kwargs={"k": 3}),
+        chain_type_kwargs={"prompt": prompt}
+    )
 
 # ==========================================
-# 4. INTERFACE DO CHATBOT
+# 3. INTERFACE VISUAL (RICH)
 # ==========================================
-print("\n" + "="*60)
-print(" 🏥 AGENTE SNS24 - TRIAGEM INTELIGENTE ".center(60))
-print("="*60)
-print("Olá! Sou o assistente virtual de triagem SNS24.")
-print("Escreva 'sair' para terminar a sessão\n")
+
+def mostrar_cabecalho():
+    grid = Table.grid(expand=True)
+    grid.add_column(justify="center", ratio=1)
+    grid.add_row("[bold white on blue]\n  SISTEMA INTELIGENTE DE TRIAGEM SNS24  \n[/bold white on blue]")
+    grid.add_row("[dim]Projeto P2 - LEGSI (Universidade do Minho)[/dim]\n")
+    console.print(Panel(grid, border_style="blue"))
+
+def formatar_resposta(texto_raw):
+    # Parsing básico da resposta para a tabela
+    linhas = texto_raw.split('\n')
+    dados = {}
+    for linha in linhas:
+        if ":" in linha:
+            chave, valor = linha.split(":", 1)
+            dados[chave.strip()] = valor.strip()
+    
+    # Definir cor baseada na urgência [cite: 41, 42, 43]
+    urgencia = dados.get("Nível de Urgência", "").upper()
+    cor = "green"
+    if "EMERGÊNCIA" in urgencia: cor = "bold red"
+    elif "URGENTE" in urgencia: cor = "bold yellow"
+    elif "CONSULTA" in urgencia: cor = "cyan"
+
+    table = Table(title="Relatório de Triagem", show_header=False, border_style=cor)
+    table.add_row("[bold]Sintomas[/]", dados.get("Sintomas Identificados", "---"))
+    table.add_row("[bold]Urgência[/]", f"[{cor}]{urgencia}[/]")
+    table.add_row("[bold]Ação[/]", dados.get("Encaminhamento", "---"))
+    table.add_row("[bold]Justificação[/]", dados.get("Justificação Clínica", "---"))
+    table.add_row("[bold]Protocolo[/]", f"[dim]{dados.get('Citação', '---')}[/]")
+    
+    return table
+
+# Loop Principal
+mostrar_cabecalho()
 
 while True:
-    sintomas = input("👤 Doente: ")
+    pergunta = Prompt.ask("\n[bold blue]Descreva os sintomas[/]")
     
-    if sintomas.lower() in ['sair', 'exit', 'quit']:
-        print("\n🩺 Agente SNS24: As melhoras! Sessão terminada.")
+    if pergunta.lower() in ['sair', 'exit', 'quit']:
+        console.print("\n[bold green]As melhoras! Sessão terminada.[/]\n")
         break
         
-    print("⏳ A consultar protocolos Altitude...")
+    with console.status("[bold yellow]A aplicar protocolos Altitude...[/]", spinner="dots"):
+        resposta = chatbot.invoke(pergunta)
+        resultado_tabela = formatar_resposta(resposta['result'])
     
-    resposta = chatbot.invoke(sintomas)
-    
-    print(f"\n🩺 Agente SNS24:\n{resposta['result']}\n")
-    print("-" * 60)
+    console.print("\n", resultado_tabela)
+    console.print("[dim]─" * 60 + "[/]\n")
